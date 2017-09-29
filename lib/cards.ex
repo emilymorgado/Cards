@@ -1,7 +1,5 @@
 defmodule Cards do
-#This creates a module called Cards
-#This is a common Elixir pattern
-#It's a collection of methods or functions
+
   @moduledoc """
   Documentation for Cards.
   """
@@ -15,22 +13,35 @@ defmodule Cards do
       :world
 
   """
-  #this function is called hello
-  #when it's called it will return "hi there!"
+
   def hello do
-    #Has an implicit return
-#    the last value will automatically be returned
-#    in elixir
     "hi there!"
-#    :world
   end
 
   def create_deck do
-    ["Ace", "Two", "Three"]
+    values = ["Ace", "Two", "Three", "Four", "Five"]
+    suits = ["Spades", "Clubs", "Hearts", "Diamonds"]
+
+    for suit <- suits, value <- values do
+      "#{value} of #{suit}"
+    end
   end
 
   def shuffle(deck) do
-    #receive deck above
-    
+    Enum.shuffle(deck)
+  end
+
+  def contains?(deck, card) do
+    Enum.member?(deck, card)
+  end
+
+  def deal(deck, hand_size) do
+    Enum.split(deck, hand_size)
+  end
+
+  def save(deck, filename) do
+    binary = :erlang.term_to_binary(deck)
+    File.write(filename, binary)
   end
 end
+
