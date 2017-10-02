@@ -74,3 +74,75 @@ Other
 #in Elixir, variable assignment uses
 #pattern matching
 #Ex: colors = [color1, color2] = ["red", "blue"]
+
+#Atom
+:atom
+Common examples: :ok, :error
+Think of them as strings
+The only difference is that strings can be displayed to the user
+
+
+#Pattern Matching Continued
+Given the following:
+["red", color] = ["green", "blue"]
+Elixir will fail to run because the hard-coded
+"red" does not match exactly with the hard-coded "green"
+
+Even a case statement pattern matches:
+    case File.read(filename) do  //runs method and checks
+      {:ok, binary} -> :erlang.binary_to_term binary
+      {:error, _reason} -> "That files does not exist"
+    end
+
+
+Underscore
+_reason Tells Elixir that we know an unused variable is there
+
+
+#Pipe Operator
+We started with this:
+  def create_hand(hand_size) do
+    deck = Cards.create_deck
+    deck = Cards.shufle(deck)
+    hand = Cards.deal(deck, hand_size)
+  end
+  
+And converted it to this:
+  def create_hand(hand_size) do
+    Cards.create_deck
+    |> Cards.shuffle
+    |> Cards.deal(hand_size)
+  end
+  
+The pipe operator allows no assignment to temp variable
+It automatically passes data on to subsequent methods
+as the first argument
+
+Tests run @doc ##Examples as if they were on the
+command line, and gives you a result!
+
+
+#Maps
+
+You can create a map with:
+map_name = %{key: value, key_2: value_2}
+You can access elements with dot notation
+dot = map_name.key sets dot to the value
+And you can pattern match
+%{key: dot} = map_name
+dot produces value
+
+Remember, you can't change data! Everything
+is immutable
+
+Use map module in Elixir docs for tools that 
+manipulate maps. Remember, you are always creating
+a new copy, not changing the existing map
+
+
+#Ecto:
+query = User.find_where([where: user.age > 10, where: user.subscribed == true])
+or
+query = User.find_where(where: user.age > 10, where: user.subscribed == true)
+or
+query = User.find_where where: user.age > 10, where: user.subscribed == true
